@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonTitle, IonToolbar } from "@ionic/react";
+import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonItemDivider, IonLabel, IonList, IonTitle, IonToolbar } from "@ionic/react";
 import { closeSharp } from "ionicons/icons";
 import useAuthToken from "../hooks/useAuthToken";
 
@@ -32,18 +32,21 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ dismiss }) => {
                 </IonToolbar>
             </IonHeader>
 
-            <IonList>
-                <IonItem>
+            <IonList inset={true}>
+                <IonItem color="light">
                     <IonLabel position="stacked">Pinboard Auth Token</IonLabel>
                     <IonInput ref={inputRef} value={authToken} />
                 </IonItem>
-            </IonList>
 
-            <div className="ion-padding">
-                <IonButton onClick={handleSave} expand="block">
+                <IonItem
+                    button
+                    detail={false}
+                    onClick={handleSave}
+                    color="primary"
+                >
                     Save
-                </IonButton>
-            </div>
+                </IonItem>
+            </IonList>
         </IonContent>
     );
 };

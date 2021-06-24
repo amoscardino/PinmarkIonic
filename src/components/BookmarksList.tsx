@@ -1,6 +1,6 @@
 import { IonList } from "@ionic/react";
 import { BOOKMARKS_STATUS } from "../hooks/useBookmarks";
-import { Bookmark } from "../interfaces/Bookmark";
+import { Bookmark } from "../models/Bookmark";
 import BookmarksListItem from "./BookmarkListItem";
 import Loader from "./Loader";
 

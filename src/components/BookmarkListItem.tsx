@@ -1,6 +1,6 @@
 import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon } from "@ionic/react";
 import { globeOutline, newspaperOutline } from "ionicons/icons";
-import { Bookmark } from "../interfaces/Bookmark";
+import { Bookmark } from "../models/Bookmark";
 
 interface BookmarksListItemProps {
     bookmark: Bookmark

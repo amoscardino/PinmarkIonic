@@ -1,10 +1,10 @@
-import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonModal, IonPage, IonTitle, IonToolbar, useIonModal } from '@ionic/react';
+import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar, useIonModal } from '@ionic/react';
 import { settingsSharp } from 'ionicons/icons';
 import BookmarksList from '../components/BookmarksList';
 import SettingsModal from '../components/SettingsModal';
 import useBookmarks from '../hooks/useBookmarks';
 
-const Bookmarks: React.FC = () => {
+const BookmarksPage: React.FC = () => {
     const [bookmarks, status, error, { loadBookmarks }] = useBookmarks();
 
     const onSettingsDismiss = () => {
@@ -16,7 +16,7 @@ const Bookmarks: React.FC = () => {
 
     return (
         <IonPage>
-            <IonHeader>
+            <IonHeader translucent={true}>
                 <IonToolbar>
                     <IonTitle>Pinmark</IonTitle>
 
@@ -29,7 +29,7 @@ const Bookmarks: React.FC = () => {
             </IonHeader>
 
             <IonContent fullscreen>
-                <IonHeader collapse="condense">
+                <IonHeader collapse="condense" translucent={true}>
                     <IonToolbar>
                         <IonTitle size="large">Pinmark</IonTitle>
                     </IonToolbar>
@@ -47,4 +47,4 @@ const Bookmarks: React.FC = () => {
     );
 };
 
-export default Bookmarks;
+export default BookmarksPage;

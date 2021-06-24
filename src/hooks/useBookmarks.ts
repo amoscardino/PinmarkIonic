@@ -1,14 +1,8 @@
 import { useEffect, useState } from "react";
-import { Http } from '@capacitor-community/http';
-import { Bookmark } from "../interfaces/Bookmark";
-import useAuthToken from "./useAuthToken";
 import { isPlatform } from "@ionic/react";
-
-interface UseBookmarksState {
-    bookmarks: Bookmark[];
-    status: string;
-    error: string;
-}
+import { Http } from '@capacitor-community/http';
+import { Bookmark } from "../models/Bookmark";
+import useAuthToken from "./useAuthToken";
 
 interface UseBookmarksHandlers {
     loadBookmarks: () => Promise<void>;
@@ -22,7 +16,7 @@ export const BOOKMARKS_STATUS = {
 
 const useBookmarks = (): [Bookmark[], string, string, UseBookmarksHandlers] => {
     const [_, { loadAuthToken }] = useAuthToken();
-    const [state, setState] = useState<UseBookmarksState>({
+    const [state, setState] = useState({
         bookmarks: [],
         status: BOOKMARKS_STATUS.notLoaded,
         error: ''
@@ -51,6 +45,10 @@ const useBookmarks = (): [Bookmark[], string, string, UseBookmarksHandlers] => {
             const response = await Http.request({
                 method: 'GET',
                 url: pinboardUrl,
+                headers: {
+                    'pragma': 'no-cache',
+                    'cache-control': 'no-cache'
+                }
             });
 
             const data = JSON.parse(response.data);
