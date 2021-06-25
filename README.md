@@ -1,7 +1,7 @@
 
 # Pinmark (Ionic Framework)
 
-This repo contains the source for a (really) simple Pinboard client built using [Ionic Framework](https://ionicframework.com). This is intended as a demonstration of Ionic and as a comparison with a [similar repo built using React Native](https://github.com/amoscardino/PinmarkReactNative).
+This repo contains the source for a (really) simple Pinboard client built using [Ionic Framework](https://ionicframework.com) (with React). This is intended as a demonstration of Ionic and as a comparison with a [similar repo built using React Native](https://github.com/amoscardino/PinmarkReactNative).
 
 ## Set Up
 
