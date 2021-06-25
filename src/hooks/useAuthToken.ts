@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import { Storage } from '@capacitor/storage';
 
 const STORAGE_KEY = 'Pinmark Auth Token';

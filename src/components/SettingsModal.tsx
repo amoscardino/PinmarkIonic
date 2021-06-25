@@ -1,7 +1,7 @@
-import { useRef } from "react";
-import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonItemDivider, IonLabel, IonList, IonTitle, IonToolbar } from "@ionic/react";
-import { closeSharp } from "ionicons/icons";
-import useAuthToken from "../hooks/useAuthToken";
+import { useRef } from 'react';
+import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonItemDivider, IonLabel, IonList, IonTitle, IonToolbar } from '@ionic/react';
+import { closeSharp } from 'ionicons/icons';
+import useAuthToken from '../hooks/useAuthToken';
 
 interface SettingsModalProps {
     dismiss: () => void

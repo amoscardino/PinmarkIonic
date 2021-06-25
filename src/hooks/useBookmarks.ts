@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { isPlatform } from "@ionic/react";
+import { useEffect, useState } from 'react';
+import { isPlatform } from '@ionic/react';
 import { Http } from '@capacitor-community/http';
-import { Bookmark } from "../models/Bookmark";
-import useAuthToken from "./useAuthToken";
+import { Bookmark } from '../models/Bookmark';
+import useAuthToken from './useAuthToken';
 
 interface UseBookmarksHandlers {
     loadBookmarks: () => Promise<void>;

@@ -1,6 +1,6 @@
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar, useIonModal } from '@ionic/react';
 import { settingsSharp } from 'ionicons/icons';
-import BookmarksList from '../components/BookmarksList';
+import BookmarkList from '../components/BookmarkList';
 import SettingsModal from '../components/SettingsModal';
 import useBookmarks from '../hooks/useBookmarks';
 
@@ -35,13 +35,7 @@ const BookmarksPage: React.FC = () => {
                     </IonToolbar>
                 </IonHeader>
 
-                {error && (
-                    <div className="ion-padding">
-                        {error}
-                    </div>
-                )}
-
-                <BookmarksList status={status} bookmarks={bookmarks} />
+                <BookmarkList status={status} error={error} bookmarks={bookmarks} />
             </IonContent>
         </IonPage>
     );
