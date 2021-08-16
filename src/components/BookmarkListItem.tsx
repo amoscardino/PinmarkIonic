@@ -1,28 +1,42 @@
-import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon } from '@ionic/react';
-import { globeOutline, newspaperOutline } from 'ionicons/icons';
+import { IonItem, IonLabel, IonIcon } from '@ionic/react';
+import { globeOutline, sparklesOutline } from 'ionicons/icons';
 import { Bookmark } from '../models/Bookmark';
+
+interface BookmarksListItemIconProps {
+    isUnread: boolean,
+    isPublic: boolean
+}
 
 interface BookmarksListItemProps {
     bookmark: Bookmark
 }
 
+const BookmarksListItemIcon: React.FC<BookmarksListItemIconProps> = ({ isUnread, isPublic }) => {
+    if (isUnread)
+        return <IonIcon icon={sparklesOutline} slot="start" />;
+
+    if (isPublic)
+        return <IonIcon icon={globeOutline} slot="start" />;
+
+    return <IonIcon slot="start" />
+};
+
 const BookmarksListItem: React.FC<BookmarksListItemProps> = ({ bookmark }) => (
-    <IonCard href={bookmark.url} color="light">
-        <IonCardHeader>
-            <IonCardTitle>
-                {bookmark.title}
-            </IonCardTitle>
-        </IonCardHeader>
+    <IonItem href={bookmark.url} target="_blank">
+        <BookmarksListItemIcon isUnread={bookmark.isUnread} isPublic={bookmark.isPublic} />
 
-        <IonCardContent>
-            {bookmark.isUnread && <IonIcon icon={newspaperOutline} />}
-            {bookmark.isPublic && <IonIcon icon={globeOutline} />}
+        <IonLabel>
+            <h2 className="ion-text-wrap">{bookmark.title}</h2>
 
-            {(bookmark.isPublic || bookmark.isUnread) && (' ')}
+            <p className="ion-float-end">
+                {bookmark.dateSaved.toLocaleDateString()}
+            </p>
 
-            {bookmark.domain}
-        </IonCardContent>
-    </IonCard>
+            <p>
+                {bookmark.domain}
+            </p>
+        </IonLabel>
+    </IonItem >
 );
 
 export default BookmarksListItem;
