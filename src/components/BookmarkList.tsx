@@ -1,37 +1,35 @@
 import { IonList } from '@ionic/react';
-import { BOOKMARKS_STATUS } from '../hooks/useBookmarks';
 import { Bookmark } from '../models/Bookmark';
 import BookmarksListItem from './BookmarkListItem';
 import Loader from './Loader';
 
 interface BookmarkListProps {
     status: string,
-    error: string,
+    error: Error | null,
     bookmarks: Bookmark[]
 }
 
 const BookmarkList: React.FC<BookmarkListProps> = ({ status, error, bookmarks }) => {
     switch (status) {
-        case BOOKMARKS_STATUS.loaded:
+        case 'success':
             return (
                 <IonList>
                     {bookmarks.map(bookmark => <BookmarksListItem key={bookmark.url} bookmark={bookmark} />)}
                 </IonList>
             );
 
-        case BOOKMARKS_STATUS.loading:
+        case 'loading':
             return <Loader />;
 
-        case BOOKMARKS_STATUS.notLoaded:
-        default:
-            if (!error)
-                return null;
-
+        case 'error':
             return (
                 <div className="ion-padding">
-                    {error}
+                    {error?.message}
                 </div>
             );
+
+        default:
+            return null;
     }
 };
 

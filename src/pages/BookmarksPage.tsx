@@ -1,15 +1,22 @@
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar, useIonModal } from '@ionic/react';
 import { settingsSharp } from 'ionicons/icons';
+import { useQuery } from 'react-query';
 import BookmarkList from '../components/BookmarkList';
 import SettingsModal from '../components/SettingsModal';
-import useBookmarks from '../hooks/useBookmarks';
+import { Bookmark } from '../models/Bookmark';
+import { loadBookmarks } from '../utils/pinboardApi';
 
 const BookmarksPage: React.FC = () => {
-    const [bookmarks, status, error, { loadBookmarks }] = useBookmarks();
+    const {
+        data: bookmarks,
+        status,
+        error,
+        refetch
+    } = useQuery<Bookmark[], Error>('bookmarks', loadBookmarks);
 
     const onSettingsDismiss = () => {
         dismissSettingsModal();
-        loadBookmarks();
+        refetch();
     };
 
     const [showSettingsModal, dismissSettingsModal] = useIonModal(SettingsModal, { dismiss: onSettingsDismiss });
@@ -35,7 +42,7 @@ const BookmarksPage: React.FC = () => {
                     </IonToolbar>
                 </IonHeader>
 
-                <BookmarkList status={status} error={error} bookmarks={bookmarks} />
+                <BookmarkList status={status} error={error} bookmarks={bookmarks || []} />
             </IonContent>
         </IonPage>
     );

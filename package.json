@@ -5,6 +5,7 @@
   "dependencies": {
     "@capacitor-community/http": "^1.0.0",
     "@capacitor/app": "1.0.1",
+    "@capacitor/browser": "^1.0.2",
     "@capacitor/core": "3.0.1",
     "@capacitor/haptics": "1.0.1",
     "@capacitor/ios": "3.0.1",
@@ -25,6 +26,7 @@
     "ionicons": "^5.4.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-query": "^3.19.6",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",

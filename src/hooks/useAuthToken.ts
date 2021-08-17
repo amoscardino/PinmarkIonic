@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Storage } from '@capacitor/storage';
-
-const STORAGE_KEY = 'Pinmark Auth Token';
+import { getAuthToken, saveAuthToken } from '../utils/authToken';
 
 interface UseAuthTokenHandlers {
     loadAuthToken: () => Promise<string>;
@@ -12,11 +10,11 @@ const useAuthToken = (): [string, UseAuthTokenHandlers] => {
     const [authToken, setAuthToken] = useState('');
 
     const loadAuthToken = async () => {
-        const { value } = await Storage.get({ key: STORAGE_KEY });
+        const value = await getAuthToken();
 
-        setAuthToken(value || '');
+        setAuthToken(value);
 
-        return value || '';
+        return value;
     };
 
     useEffect(() => {
@@ -24,7 +22,7 @@ const useAuthToken = (): [string, UseAuthTokenHandlers] => {
     }, []);
 
     const updateAuthToken = async (newToken: string) => {
-        await Storage.set({ key: STORAGE_KEY, value: newToken });
+        await saveAuthToken(newToken);
 
         setAuthToken(newToken);
     };

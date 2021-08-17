@@ -1,5 +1,6 @@
 import { IonItem, IonLabel, IonIcon } from '@ionic/react';
 import { globeOutline, sparklesOutline } from 'ionicons/icons';
+import { Browser } from '@capacitor/browser';
 import { Bookmark } from '../models/Bookmark';
 
 interface BookmarksListItemIconProps {
@@ -21,22 +22,28 @@ const BookmarksListItemIcon: React.FC<BookmarksListItemIconProps> = ({ isUnread,
     return <IonIcon slot="start" />
 };
 
-const BookmarksListItem: React.FC<BookmarksListItemProps> = ({ bookmark }) => (
-    <IonItem href={bookmark.url} target="_blank">
-        <BookmarksListItemIcon isUnread={bookmark.isUnread} isPublic={bookmark.isPublic} />
+const BookmarksListItem: React.FC<BookmarksListItemProps> = ({ bookmark }) => {
+    const handleItemClick = async () => {
+        await Browser.open({ url: bookmark.url });
+    };
 
-        <IonLabel>
-            <h2 className="ion-text-wrap">{bookmark.title}</h2>
+    return (
+        <IonItem button onClick={handleItemClick}>
+            <BookmarksListItemIcon isUnread={bookmark.isUnread} isPublic={bookmark.isPublic} />
 
-            <p className="ion-float-end">
-                {bookmark.dateSaved.toLocaleDateString()}
-            </p>
+            <IonLabel>
+                <h2 className="ion-text-wrap">{bookmark.title}</h2>
 
-            <p>
-                {bookmark.domain}
-            </p>
-        </IonLabel>
-    </IonItem >
-);
+                <p className="ion-float-end">
+                    {bookmark.dateSaved.toLocaleDateString()}
+                </p>
+
+                <p>
+                    {bookmark.domain}
+                </p>
+            </IonLabel>
+        </IonItem >
+    );
+};
 
 export default BookmarksListItem;
