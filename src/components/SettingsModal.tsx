@@ -1,20 +1,30 @@
-import { useRef } from 'react';
-import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonItemDivider, IonLabel, IonList, IonTitle, IonToolbar } from '@ionic/react';
-import { closeSharp } from 'ionicons/icons';
-import useAuthToken from '../hooks/useAuthToken';
+import { useState, useRef, useEffect } from 'react';
+import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonItemDivider, IonLabel, IonList, IonRow, IonTitle, IonToolbar } from '@ionic/react';
+import { closeSharp, keyOutline } from 'ionicons/icons';
+import { getAuthToken, saveAuthToken } from '../utils/authToken';
 
 interface SettingsModalProps {
     dismiss: () => void
 }
 
 const SettingsModal: React.FC<SettingsModalProps> = ({ dismiss }) => {
-    const inputRef = useRef<HTMLIonInputElement>(null);
-    const [authToken, { updateAuthToken }] = useAuthToken();
+    const [token, setToken] = useState('');
+
+    useEffect(() => {
+        const loadAuthToken = async () => {
+            const authToken = await getAuthToken();
+            setToken(authToken);
+        };
+
+        loadAuthToken();
+    }, []);
+
+    const handleClose = () => {
+        dismiss();
+    };
 
     const handleSave = async () => {
-        const newToken = inputRef.current?.value?.toString() || '';
-
-        await updateAuthToken(newToken);
+        await saveAuthToken(token);
         dismiss();
     };
 
@@ -34,19 +44,35 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ dismiss }) => {
 
             <IonList inset={true}>
                 <IonItem color="light">
-                    <IonLabel position="stacked">Pinboard Auth Token</IonLabel>
-                    <IonInput ref={inputRef} value={authToken} />
-                </IonItem>
+                    <IonIcon slot="start" icon={keyOutline} />
 
-                <IonItem
-                    button
-                    detail={false}
-                    onClick={handleSave}
-                    color="primary"
-                >
-                    Save
+                    <IonLabel position="floating">
+                        Pinboard Auth Token
+                    </IonLabel>
+
+                    <IonInput
+                        type="text"
+                        value={token}
+                        onChange={e => setToken(e.currentTarget.value?.toString() || '')}
+                    />
                 </IonItem>
             </IonList>
+
+            <IonGrid>
+                <IonRow>
+                    <IonCol>
+                        <IonButton expand="block" fill="outline" onClick={handleClose}>
+                            Close
+                        </IonButton>
+                    </IonCol>
+
+                    <IonCol>
+                        <IonButton expand="block" fill="solid" onClick={handleSave}>
+                            Save
+                        </IonButton>
+                    </IonCol>
+                </IonRow>
+            </IonGrid>
         </IonContent>
     );
 };

@@ -12,6 +12,9 @@ export const loadBookmarks = async (): Promise<Bookmark[]> => {
     if (!isPlatform('ios') && !isPlatform('android'))
         pinboardUrl = `https://moscardino-cors.azurewebsites.net/api/proxy?url=${encodeURIComponent(pinboardUrl)}`
 
+    // Introduce a delay to verify loading states
+    await new Promise<void>(resolve => setTimeout(() => resolve(), 1500));
+
     try {
         const response = await Http.request({
             method: 'GET',
