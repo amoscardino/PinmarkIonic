@@ -10,7 +10,7 @@ export const loadBookmarks = async (): Promise<Bookmark[]> => {
 
     // CORS workaround
     if (!isPlatform('ios') && !isPlatform('android'))
-        pinboardUrl = `https://moscardino-cors.azurewebsites.net/api/proxy?url=${encodeURIComponent(pinboardUrl)}`
+        pinboardUrl = `http://localhost:8010/v1/posts/recent?format=json&auth_token=${authToken}`;
 
     // Introduce a delay to verify loading states
     await new Promise<void>(resolve => setTimeout(() => resolve(), 1500));
